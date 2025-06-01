@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aura Threads - Modern Fashion (2025 Concept)</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e91e63;
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #e91e63;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions a {
+            color: #333;
+            font-size: 18px;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .cart-link .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e91e63;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Product Detail */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            position: relative;
+        }
+
+        .product-image .main-image {
+            width: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            max-height: 500px;
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .thumbnail-gallery img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.3s ease;
+        }
+
+        .thumbnail-gallery img.active {
+            border-color: #e91e63;
+        }
+
+        .product-info h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 14px;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .buy-box {
+            margin: 25px 0;
+        }
+
+        .size-options, .quantity-controls {
+            margin: 10px 0;
+        }
+
+        .size-options button {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .size-options button.active {
+            border-color: #e91e63;
+            color: #e91e63;
+            background: #fce4ec;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .quantity-controls button {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-controls button:hover {
+            background: #f0f0f0;
+        }
+
+        .quantity-controls input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 16px;
+            color: #e91e63;
+        }
+
+        .buy-box button {
+            background: #e91e63;
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .buy-box button:hover {
+            background: #c2185b;
+        }
+
+        .share {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .share a {
+            color: #e91e63;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .share a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tabs */
+        .tabs {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .tabs h3 {
+            font-size: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tabs p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Related Products */
+        .related h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .related-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .related-items div {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .related-items div:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .related-items img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .related-items p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .related-items p:last-child {
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .main-nav.active {
+                display: block;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-container {
+                padding: 10px 15px;
+            }
+
+            .buy-box button {
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-detail {
+                padding: 20px;
+            }
+
+            .product-info h1 {
+                font-size: 24px;
+            }
+
+            .price {
+                font-size: 20px;
+            }
+
+            .thumbnail-gallery img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+            <a href="#" class="logo">Aura</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#new-arrivals">New Arrivals</a></li>
+                    <li><a href="#categories">Collections</a></li>
+                    <li><a href="#lookbook">Lookbook</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" aria-label="Search"><i class="fas fa-search"></i></a>
+                <a href="#" aria-label="Account"><i class="fas fa-user"></i></a>
+                <a href="cart.html" class="cart-link" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="product-detail">
+            <div class="product-image">
+                <img src="https://down-id.img.susercontent.com/file/c3c598be8882805d44c0d6c940871703@resize_w900_nl.webp" alt="MINISO Boneka Lucu Kucing Boneka Lembut Mainan Mewah Kucing dengan Penutup Mata Kado Anak Plush Toy" class="main-image" id="mainImage">
+                <div class="thumbnail-gallery">
+                    <img src="https://down-id.img.susercontent.com/file/c3c598be8882805d44c0d6c940871703@resize_w900_nl.webp" alt="Thumbnail 1" class="active" onclick="changeImage(this)">
+                    <img src="https://down-id.img.susercontent.com/file/f07ab085bbdd08ebee352938fcd18746.webp" alt="Thumbnail 2" onclick="changeImage(this)">
+                    <img src="https://down-id.img.susercontent.com/file/5b950de0458403daa3902ada95377ec6.webp" alt="Thumbnail 3" onclick="changeImage(this)">
+                    <img src="https://down-id.img.susercontent.com/file/3d21e213db54ec9e204b6c6274f7db9f.webp" alt="Thumbnail 4" onclick="changeImage(this)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h1>MINISO Boneka Seri TOY Story Lotso Bear Strawberry Plush Toy Boneka Lucu Mainan Boneka Kado Ulang Tahun</h1>
+                <div class="price">Rp127.900</div>
+                <div class="meta">
+                    Kode: boneka buat ayang<br>
+                    Rating: 4.9 (623 reviews)<br>
+                    Stok: 54<br>
+                    Merek: Lain-lain
+                </div>
+                <div class="buy-box">
+
+                    <div class="quantity-controls">
+                        <label>Kuantitas:</label>
+                        <button onclick="updateQuantity(-1)">-</button>
+                        <input type="number" id="quantity" value="1" min="1" readonly>
+                        <button onclick="updateQuantity(1)">+</button>
+                    </div>
+                    <button onclick="addToCart()">Tambahkan ke Keranjang</button>
+                    <button onclick="buyNow()">Beli Langsung</button>
+                </div>
+                <div class="share">
+                    <span>Bagikan:</span>
+                    <a href="#">Facebook</a> |
+                    <a href="#">Twitter</a> |
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <h3>Detail Produk</h3>
+            <p>1. Terbuat dari katun bawah, lembut dan nyaman, tahan tekanan dan bernapas, mudah dibersihkan.</p>
+            <p>2. Ramah lingkungan dan tidak berbahaya, memenuhi beberapa standar keselamatan, seperti EN 71, ASTM F963, dll.</p>
+            <p>3. Multifungsi, dapat digunakan sebagai hiasan di kantor atau rumah Anda, juga dapat digunakan sebagai bantalan punggung, bantal, dll.</p>
+            <h3>Spesifikasi</h3>
+            <p>Info Produk</p>
+            <p>Bahan: poliester+elastan<br>Ukuran: 25x18x20 cm</p>
+        </div>
+
+        <div class="related">
+            <h3>Anda Mungkin Juga Suka</h3>
+            <div class="related-items">
+                <div>
+                    <img src="images/celana4.png" alt="Celana Pendek">
+                    <p>Celana pendek wanita Hotpants</p>
+                    <p>Rp32.500</p>
+                </div>
+                <div>
+                    <img src="images/celana5.png" alt="Tas Import">
+                    <p>Tas Wanita Import</p>
+                    <p>Rp14.999</p>
+                </div>
+                <div>
+                    <img src="images/celana6.png" alt="Celana Pendek Premium">
+                    <p>CELANA PENDEK PREMIUM PRIA</p>
+                    <p>Rp84.500</p>
+                </div>
+                <div>
+                    <img src="images/celana7.png" alt="Celana Pendek Santai">
+                    <p>Celana pendek santai pria wanita</p>
+                    <p>Rp30.000</p>
+                </div>
+                <div>
+                    <img src="images/celana4.png" alt="Celana Pendek">
+                    <p>Celana pendek wanita Hotpants</p>
+                    <p>Rp32.500</p>
+                </div>
+                <div>
+                    <img src="images/celana5.png" alt="Tas Import">
+                    <p>Tas Wanita Import</p>
+                    <p>Rp14.999</p>
+                </div>
+                <div>
+                    <img src="images/celana6.png" alt="Celana Pendek Premium">
+                    <p>CELANA PENDEK PREMIUM PRIA</p>
+                    <p>Rp84.500</p>
+                </div>
+                <div>
+                    <img src="images/celana7.png" alt="Celana Pendek Santai">
+                    <p>Celana pendek santai pria wanita</p>
+                    <p>Rp30.000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.main-nav').classList.toggle('active');
+        });
+
+        // Initialize cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function changeImage(element) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = element.src;
+            const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Handle size selection
+
+        // Handle quantity selection
+        let quantity = 1;
+        function updateQuantity(change) {
+            quantity = Math.max(1, quantity + change); // Ensure quantity doesn't go below 1
+            document.getElementById('quantity').value = quantity;
+        }
+
+        // Add to cart function
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            for (let i = 0; i < quantity; i++) {
+                const product = {
+                    name: 'Boneka Seri TOY Story',
+                    price: 127900,
+                    image: document.getElementById('mainImage').src,
+                    code: 'boneka buat ayang',
+             
+                    quantity: 1 // Each item in cart represents 1 unit
+                };
+                cart.push(product);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`Produk sebanyak ${quantity} telah ditambahkan ke keranjang!`);
+            // Reset quantity after adding
+            quantity = 1;
+            document.getElementById('quantity').value = quantity;
+        }
+
+        // Buy now function
+        function buyNow() {
+            addToCart();
+            window.location.href = 'cart.html';
+        }
+
+        // Update cart count on page load
+        window.onload = updateCartCount;
+    </script>
+</body>
+</html>

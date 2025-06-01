@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="rd-template-admin">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MOMOMAL Manage Articles</title>
+        <link rel="stylesheet" href="assets/css/sanitize/sanitize.css?npm-v=github%3Acsstools%2Fsanitize.css%23main">
+        <link rel="stylesheet" href="assets/css/sanitize/typography.css?npm-v=github%3Acsstools%2Fsanitize.css%23main">
+        <link rel="stylesheet" href="assets/css/sanitize/forms.css?npm-v=github%3Acsstools%2Fsanitize.css%23main">
+        <link rel="stylesheet" href="assets/font-awesome/css/all.min.css?npm-v=6.0.0">
+        <link rel="stylesheet" href="assets/css/smartmenus/sm-core-css.css?npm-v=1.1.1">
+        <link rel="stylesheet" href="assets/css/smartmenus/sm-rdta/sm-rdta.css?v=49e159bb1b8cc5ae941d93c1508e901e">
+        <link rel="stylesheet" href="assets/css/rdta/typo-and-form/typo-and-form.css?v=52a379fee397f2eb7dea26651210db79">
+        <link rel="stylesheet" href="assets/css/rdta/rundiz-template-admin.css?v=917288fcd4d374406ac60af71a632444">
+        <link class="exclude-preview" rel="stylesheet" href="assets/css-preview/prism.css?v=de20a76f891181fd461354e782db7a0f">
+        <link class="exclude-preview" rel="stylesheet" href="assets/css-preview/documents.css?v=723a2316bd4d6e8a361b431002473a2c">
+        <link class="exclude-preview" rel="stylesheet" href="assets/css-preview/view-source.css?v=882e2b16871a0ba615594d2595727886">
+        <link rel="stylesheet" href="assets/css/rdta/columns/columns-flex.css?v=5a1243343c98bcb2a0956d100c7e15d7">
+        <style>
+            .example-card {
+                border: 1px solid #ddd;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                margin-bottom: 1.250rem;
+                padding: 0.625em;
+            }
+            .article-form input, .article-form textarea {
+                padding: 5px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .article-form textarea {
+                height: 100px;
+                resize: vertical;
+            }
+            .article-form button, .delete-btn, .edit-btn, .cancel-btn {
+                background: #e91e63;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                margin-right: 5px;
+            }
+            .article-form button:hover, .delete-btn:hover, .edit-btn:hover, .cancel-btn:hover {
+                background: #c2185b;
+            }
+            .cancel-btn {
+                background: #666;
+            }
+            .cancel-btn:hover {
+                background: #555;
+            }
+            .rd-datatable th, .rd-datatable td {
+                padding: 8px;
+                text-align: left;
+            }
+            .rd-sidebar-item-list a.active {
+                background: #e91e63;
+                color: white;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="rd-navbar">
+            <button class="rd-sidebar-toggler" data-target=".rd-page-wrapper" title="Toggle side bar menu"><i class="fa-solid fa-bars fa-fw"></i><span class="screen-reader-only" aria-hidden="true">Toggle side bar menu</span></button>
+            <div class="rd-site-brand"><a href="./admin.html">Admin Dashboard</a></div>
+            <nav class="nav-right">
+                <ul class="sm sm-rdta navbar">
+                    <li class="user"><a href="#"><i class="fa-regular fa-circle-user"></i></a>
+                        <ul>
+                            <li><a>Hello, Lutfino</a></li>
+                            <li><a href="#">Edit your account</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="rd-page-wrapper">
+            <div class="rd-sidebar-back"></div>
+            <section class="rd-sidebar">
+                <h2 class="screen-reader-only">Sidebar menus</h2>
+                <div class="rd-sidebar-inner">
+                    <ul class="rd-sidebar-item-list sm sm-vertical sm-rdta">
+                        <li><a href="admin.html" title="Admin home"><i class="sidebar-icon fa-solid fa-gauge-high fa-fw"></i> <span class="rd-sidebar-menu-text">Dashboard</span></a></li>
+                        <li><a href="manage-users.html" title="Manage Users"><i class="sidebar-icon fa-solid fa-users fa-fw"></i> <span class="rd-sidebar-menu-text">Kelola Pengguna</span></a></li>
+                        <li><a href="manage-articles.html" title="Manage Articles" class="active"><i class="sidebar-icon fa-solid fa-newspaper fa-fw"></i> <span class="rd-sidebar-menu-text">Kelola Artikel</span></a></li>
+                        <li><a href="manage-products.html" title="Manage Products"><i class="sidebar-icon fa-solid fa-box fa-fw"></i> <span class="rd-sidebar-menu-text">Kelola Produk</span></a></li>
+                        <li><a href="admin.html#transactions" title="Transactions"><i class="sidebar-icon fa-solid fa-receipt fa-fw"></i> <span class="rd-sidebar-menu-text">Transaksi</span></a></li>
+                        <li class="divider"></li>
+                    </ul>
+                    <ul class="rd-sidebar-item-list rd-sidebar-expand-collapse-controls">
+                        <li>
+                            <a data-target=".rd-page-wrapper" title="Expand/collapse menu"><i class="sidebar-icon faicon fa-solid fa-chevron-left fa-fw" data-toggle-icon="fa-chevron-left fa-chevron-right"></i> <span class="screen-reader-only" aria-hidden="true">Expand/collapse menu</span></a>
+                            <hr>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <main>
+                <nav>
+                    <ul class="rd-breadcrumb">
+                        <li><a href="admin.html">Dashboard</a></li>
+                        <li class="current"><a href="manage-articles.html">Kelola Artikel</a></li>
+                    </ul>
+                </nav>
+                <div class="rd-page-content">
+                    <div class="rd-columns-flex-container fix-columns-container-edge">
+                        <div class="column">
+                            <div class="example-card">
+                                <h3>Kelola Artikel</h3>
+                                <form id="articleForm" class="article-form">
+                                    <input type="hidden" id="articleId">
+                                    <input type="text" id="articleTitle" placeholder="Judul Artikel" required>
+                                    <textarea id="articleContent" placeholder="Konten Artikel" required></textarea>
+                                    <input type="text" id="articleAuthor" placeholder="Penulis" required>
+                                    <input type="text" id="articleImage" placeholder="URL Gambar (opsional)">
+                                    <input type="text" id="articleDate" placeholder="Tanggal (otomatis)" readonly>
+                                    <button type="submit">Simpan Artikel</button>
+                                    <button type="button" id="cancelArticle" class="cancel-btn" style="display: none;">Batal</button>
+                                </form>
+                                <table class="rd-datatable responsive">
+                                    <thead>
+                                        <tr>
+                                            <th class="column-primary">Judul</th>
+                                            <th>Penulis</th>
+                                            <th>Tanggal</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="articleTableBody"></tbody>
+             
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer></footer>
+        </div>
+        <script class="exclude-preview">
+            const rdta_debug = false;
+        </script>
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="assets/js/smartmenus/jquery.smartmenus.min.js?npm-v=1.1.1"></script>
+        <script src="assets/js/popper.js/umd/popper.min.js?npm-v=2.11.2"></script>
+        <script src="assets/js/sticky-sidebar/jquery.sticky-sidebar.min.js?npm-v=3.3.1"></script>
+        <script src="assets/js/resize-sensor/ResizeSensor.js?v=8652505c23e8fdc8016445c5e13bee64"></script>
+        <script src="assets/js/rdta/rundiz-template-admin.js?v=94563169fb1da0c698556f60530a377a"></script>
+        <script class="exclude-preview" src="assets/js-preview/prism.js?v=0718daece78cc150461b32c0ceab4fab" data-manual></script>
+        <script class="exclude-preview" src="assets/js-preview/view-target-source.js?v=c9c8f5d72845b3693400fb9490283bfa"></script>
+        <script class="exclude-preview" src="assets/js-preview/view-source.js?v=a7a9a35d448fd74928624a3f56b5bfdc"></script>
+        <script class="exclude-preview" src="assets/js-preview/document-utils.js?v=73715f0a453f151dc904badc2234118e"></script>
+        <script>
+            // UUID generator
+            function generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // Article Management
+            function loadArticles() {
+                const articles = JSON.parse(localStorage.getItem('articles') || '[]');
+                const tableBody = document.getElementById('articleTableBody');
+                tableBody.innerHTML = '';
+
+                articles.forEach((article, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="column-primary" data-colname="Judul">
+                            ${article.title}
+                            <button class="toggle-row" type="button"><i class="faicon fa-solid fa-caret-down fa-fw" data-toggle-icon="fa-caret-down fa-caret-up"></i><span class="screen-reader-only">Show more details</span></button>
+                        </td>
+                        <td data-colname="Penulis">${article.author}</td>
+                        <td data-colname="Tanggal">${article.date}</td>
+                        <td data-colname="Aksi">
+                            <button class="edit-btn" onclick="editArticle(${index})">Edit</button>
+                            <button class="delete-btn" onclick="deleteArticle(${index})">Hapus</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            document.getElementById('articleForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = document.getElementById('articleId').value || generateUUID();
+                const article = {
+                    id,
+                    title: document.getElementById('articleTitle').value,
+                    content: document.getElementById('articleContent').value,
+                    author: document.getElementById('articleAuthor').value,
+                    image: document.getElementById('articleImage').value,
+                    date: new Date().toLocaleString('id-ID')
+                };
+
+                let articles = JSON.parse(localStorage.getItem('articles') || '[]');
+                if (document.getElementById('articleId').value) {
+                    articles = articles.map(a => a.id === id ? article : a);
+                } else {
+                    articles.push(article);
+                }
+
+                localStorage.setItem('articles', JSON.stringify(articles));
+                resetArticleForm();
+                loadArticles();
+            });
+
+            function editArticle(index) {
+                const articles = JSON.parse(localStorage.getItem('articles') || '[]');
+                const article = articles[index];
+                document.getElementById('articleId').value = article.id;
+                document.getElementById('articleTitle').value = article.title;
+                document.getElementById('articleContent').value = article.content;
+                document.getElementById('articleAuthor').value = article.author;
+                document.getElementById('articleImage').value = article.image;
+                document.getElementById('articleDate').value = article.date;
+                document.getElementById('cancelArticle').style.display = 'inline-block';
+            }
+
+            function deleteArticle(index) {
+                if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
+                    let articles = JSON.parse(localStorage.getItem('articles') || '[]');
+                    articles.splice(index, 1);
+                    localStorage.setItem('articles', JSON.stringify(articles));
+                    loadArticles();
+                }
+            }
+
+            function resetArticleForm() {
+                document.getElementById('articleForm').reset();
+                document.getElementById('articleId').value = '';
+                document.getElementById('articleDate').value = new Date().toLocaleString('id-ID');
+                document.getElementById('cancelArticle').style.display = 'none';
+            }
+
+            document.getElementById('cancelArticle').addEventListener('click', resetArticleForm);
+
+            window.onload = () => {
+                loadArticles();
+                document.getElementById('articleDate').value = new Date().toLocaleString('id-ID');
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOMOMAL Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* General Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles (Taken from index.html and Enhanced) */
+        .main-header {
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .main-header.scrolled {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            background: #fff;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #e91e63;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #c2185b;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #e91e63;
+            background: rgba(233, 30, 99, 0.05);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-actions a {
+            color: #333;
+            font-size: 18px;
+            position: relative;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .header-actions a:hover {
+            color: #e91e63;
+            transform: scale(1.2);
+        }
+
+        .cart-link .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e91e63;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            color: #e91e63;
+        }
+
+        /* Logout Button Styling */
+        .logout-btn {
+            background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #c2185b 0%, #e91e63 100%);
+        }
+
+        /* Profile Card and Transaction Card */
+        .profile-card, .transaction-card {
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover, .transaction-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-form input, .profile-form input[type="file"] {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .profile-form input:focus {
+            border-color: #e91e63;
+            outline: none;
+        }
+
+        .profile-form button {
+            background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .profile-form button:hover {
+            background: linear-gradient(135deg, #c2185b 0%, #e91e63 100%);
+        }
+
+        .cancel-btn {
+            background: linear-gradient(135deg, #666 0%, #555 100%);
+        }
+
+        .cancel-btn:hover {
+            background: linear-gradient(135deg, #555 0%, #666 100%);
+        }
+
+        .profile-picture-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e91e63;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+        }
+
+        .error-message, .success-message {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .error-message {
+            color: #e91e63;
+            background: #fce4ec;
+        }
+
+        .success-message {
+            color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        /* Transaction Table Styling */
+        .rd-datatable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .rd-datatable th, .rd-datatable td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .rd-datatable th {
+            background: #f5f5f5;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+            color: #333;
+        }
+
+        .rd-datatable td {
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .rd-datatable tr:hover {
+            background: #fafafa;
+        }
+
+        .status-processing {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .status-shipped {
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .status-delivered {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .main-nav.active {
+                display: block;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-nav a {
+                padding: 10px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-container {
+                padding: 10px 15px;
+            }
+
+            .profile-card, .transaction-card {
+                padding: 1.5rem;
+            }
+
+            .profile-picture {
+                width: 100px;
+                height: 100px;
+            }
+
+            .rd-datatable th, .rd-datatable td {
+                padding: 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .header-actions a {
+                font-size: 16px;
+            }
+
+            .profile-form button {
+                width: 100%;
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header" id="mainHeader">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Miniso</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#new-arrivals">New Arrivals</a></li>
+                    <li><a href="Produk.html">Collections</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" aria-label="Search"><i class="fas fa-search"></i><span class="icon-label"></span></a>
+                <a href="profile.html" aria-label="Account" class="active"><i class="fas fa-user"></i><span class="icon-label"></span></a>
+                <a href="cart.html" class="cart-link" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                    <span class="icon-label"></span>
+                </a>
+                <a href="#" id="logout" class="logout-btn">Logout</a>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-bars"></i>
+                    <span class="screen-reader-only">Toggle Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="rd-page-content">
+        <div class="rd-columns-flex-container fix-columns-container-edge">
+            <div class="column">
+                <div class="profile-card">
+                    <h3>Profil Pengguna</h3>
+                    <div id="errorMessage" class="error-message"></div>
+                    <div id="successMessage" class="success-message"></div>
+                    <div class="profile-picture-container">
+                        <img id="profilePicture" src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-picture">
+                    </div>
+                    <form id="profileForm" class="profile-form">
+                        <input type="text" id="username" placeholder="Username" required>
+                        <input type="email" id="userEmail" placeholder="Email" required>
+                        <input type="password" id="userPassword" placeholder="Password" required>
+                        <input type="file" id="profileImage" accept="image/*">
+                        <button type="submit">Simpan Perubahan</button>
+                        <button type="button" id="cancelEdit" class="cancel-btn">Batal</button>
+                    </form>
+                </div>
+                <div class="transaction-card">
+                    <h3>Riwayat Transaksi</h3>
+                    <table class="rd-datatable responsive">
+                        <thead>
+                            <tr>
+                                <th class="column-primary">Items</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.main-nav').classList.toggle('active');
+        });
+
+        // Scroll effect for header
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Initialize cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login2.html';
+        }
+
+        // Populate form with current user data
+        document.getElementById('username').value = currentUser.username;
+        document.getElementById('userEmail').value = currentUser.email;
+        document.getElementById('userPassword').value = currentUser.password;
+        if (currentUser.profilePicture) {
+            document.getElementById('profilePicture').src = currentUser.profilePicture;
+        }
+
+        // Handle profile picture upload
+        document.getElementById('profileImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePicture').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const email = document.getElementById('userEmail').value;
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Check for duplicate email (excluding current user)
+            const emailExists = users.some(u => u.email === email && u.id !== currentUser.id);
+            if (emailExists) {
+                errorMessage.textContent = 'Email sudah terdaftar!';
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                return;
+            }
+
+            // Update user data
+            const updatedUser = {
+                ...currentUser,
+                username: document.getElementById('username').value,
+                email: email,
+                password: document.getElementById('userPassword').value,
+                profilePicture: document.getElementById('profilePicture').src
+            };
+
+            // Update users array
+            const updatedUsers = users.map(u => u.id === currentUser.id ? updatedUser : u);
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+            localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+            // Show success message
+            successMessage.textContent = 'Profil berhasil diperbarui!';
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+
+            // Reload transaction history to reflect updated email if changed
+            loadUserTransactions();
+        });
+
+        // Cancel button to reset form
+        document.getElementById('cancelEdit').addEventListener('click', function() {
+            document.getElementById('profileForm').reset();
+            document.getElementById('username').value = currentUser.username;
+            document.getElementById('userEmail').value = currentUser.email;
+            document.getElementById('userPassword').value = currentUser.password;
+            document.getElementById('profilePicture').src = currentUser.profilePicture || 'https://via.placeholder.com/100';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        });
+
+        // Load user's transaction history
+        function loadUserTransactions() {
+            const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+            const userTransactions = transactions.filter(t => t.customerEmail === currentUser.email);
+            const tableBody = document.getElementById('transactionTableBody');
+            tableBody.innerHTML = '';
+
+            userTransactions.forEach(transaction => {
+                const itemsList = transaction.items.map(item => `${item.name} (Rp${item.price.toLocaleString()})`).join(', ');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="column-primary" data-colname="Items">
+                        ${itemsList}
+                        <button class="toggle-row" type="button"><i class="faicon fa-solid fa-caret-down fa-fw" data-toggle-icon="fa-caret-down fa-caret-up"></i><span class="screen-reader-only">Show more details</span></button>
+                    </td>
+                    <td data-colname="Total">Rp${transaction.total.toLocaleString()}</td>
+                    <td data-colname="Date">${transaction.date}</td>
+                    <td data-colname="Payment Method">${transaction.paymentMethod}</td>
+                    <td data-colname="Status" class="status-${transaction.status.toLowerCase()}">${transaction.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Show message if no transactions
+            if (userTransactions.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Belum ada transaksi.</td></tr>';
+            }
+        }
+
+        // Logout
+        document.getElementById('logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        });
+
+        // Load transactions and cart count on page load
+        window.onload = () => {
+            updateCartCount();
+            loadUserTransactions();
+        };
+    </script>
+</body>
+</html>
