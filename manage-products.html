@@ -17,75 +17,263 @@
         <link class="exclude-preview" rel="stylesheet" href="assets/css-preview/view-source.css?v=882e2b16871a0ba615594d2595727886">
         <link rel="stylesheet" href="assets/css/rdta/columns/columns-flex.css?v=5a1243343c98bcb2a0956d100c7e15d7">
         <style>
+            body {
+                background-color: #ffffff;
+                color: #1a1a1a;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+                line-height: 1.6;
+            }
+
+            .rd-navbar {
+                background-color: #ffffff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                padding: 1rem;
+            }
+
+            .rd-site-brand a {
+                color: #1a1a1a;
+                font-size: 1.5rem;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .rd-sidebar {
+                background-color: #f8fafc;
+                border-right: 1px solid #e5e7eb;
+            }
+
+            .rd-sidebar-item-list a {
+                color: #374151;
+                transition: all 0.2s ease;
+                border-radius: 6px;
+                padding: 0.75rem 1rem;
+                margin: 0.25rem 0.5rem;
+            }
+
+            .rd-sidebar-item-list a:hover {
+                background-color: #e5e7eb;
+                color: #1a1a1a;
+            }
+
+            .rd-sidebar-item-list a.active {
+                background-color: #3b82f6;
+                color: #ffffff;
+                font-weight: 500;
+            }
+
             .example-card {
-                border: 1px solid #ddd;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                margin-bottom: 1.250rem;
-                padding: 0.625em;
+                background-color: #ffffff;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                transition: transform 0.2s ease;
             }
-            .product-form input, .product-form textarea, .product-form select {
-                padding: 5px;
-                border-radius: 4px;
-                border: 1px solid #ddd;
-                width: 100%;
-                margin-bottom: 10px;
+
+            .example-card:hover {
+                transform: translateY(-2px);
             }
+
+            .example-card h3 {
+                color: #1a1a1a;
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            .product-form {
+                display: grid;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .product-form input,
+            .product-form select,
+            .product-form textarea {
+                padding: 0.75rem;
+                border-radius: 6px;
+                border: 1px solid #d1d5db;
+                background-color: #ffffff;
+                font-size: 0.875rem;
+                color: #1a1a1a;
+                transition: border-color 0.2s ease;
+            }
+
+            .product-form input:focus,
+            .product-form select:focus,
+            .product-form textarea:focus {
+                outline: none;
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            .product-form input[readonly] {
+                background-color: #f3f4f6;
+                cursor: not-allowed;
+            }
+
             .product-form textarea {
                 height: 100px;
                 resize: vertical;
+                grid-column: span 2;
             }
-            .product-form button, .delete-btn, .edit-btn, .preview-btn, .cancel-btn {
-                background: #e91e63;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background 0.3s ease;
-                margin-right: 5px;
+
+            .product-form .form-actions {
+                grid-column: span 2;
+                display: flex;
+                gap: 0.5rem;
             }
-            .product-form button:hover, .delete-btn:hover, .edit-btn:hover, .preview-btn:hover, .cancel-btn:hover {
-                background: #c2185b;
-            }
+
+            .product-form button,
+            .edit-btn,
+            .delete-btn,
+            .preview-btn,
             .cancel-btn {
-                background: #666;
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+                font-size: 0.875rem;
+                font-weight: 500;
+                transition: background-color 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
+
+            .product-form button {
+                background-color: #3b82f6;
+                color: #ffffff;
+            }
+
+            .product-form button:hover {
+                background-color: #2563eb;
+            }
+
+            .edit-btn {
+                background-color: #10b981;
+                color: #ffffff;
+            }
+
+            .edit-btn:hover {
+                background-color: #059669;
+            }
+
+            .delete-btn {
+                background-color: #ef4444;
+                color: #ffffff;
+            }
+
+            .delete-btn:hover {
+                background-color: #dc2626;
+            }
+
+            .preview-btn {
+                background-color: #8b5cf6;
+                color: #ffffff;
+            }
+
+            .preview-btn:hover {
+                background-color: #7c3aed;
+            }
+
+            .cancel-btn {
+                background-color: #6b7280;
+                color: #ffffff;
+            }
+
             .cancel-btn:hover {
-                background: #555;
+                background-color: #4b5563;
             }
-            .rd-datatable th, .rd-datatable td {
-                padding: 8px;
+
+            .rd-datatable {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #ffffff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            .rd-datatable th,
+            .rd-datatable td {
+                padding: 1rem;
                 text-align: left;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 0.875rem;
             }
-            .rd-sidebar-item-list a.active {
-                background: #e91e63;
-                color: white;
-                border-radius: 4px;
+
+            .rd-datatable th {
+                background-color: #f8fafc;
+                color: #1a1a1a;
+                font-weight: 600;
             }
+
+            .rd-datatable td {
+                color: #4b5563;
+            }
+
+            .rd-breadcrumb {
+                margin-bottom: 1.5rem;
+            }
+
+            .rd-breadcrumb li a {
+                color: #3b82f6;
+                text-decoration: none;
+                font-size: 0.875rem;
+            }
+
+            .rd-breadcrumb li a:hover {
+                text-decoration: underline;
+            }
+
             .error {
-                color: #c2185b;
-                font-size: 14px;
-                margin-bottom: 10px;
+                color: #dc2626;
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
                 display: none;
+                grid-column: span 2;
+            }
+
+            hr {
+                border-color: #e5e7eb;
+                margin: 1rem 0;
+            }
+
+            @media (max-width: 768px) {
+                .example-card {
+                    padding: 1rem;
+                }
+
+                .rd-datatable th,
+                .rd-datatable td {
+                    padding: 0.75rem;
+                }
+
+                .product-form {
+                    grid-template-columns: 1fr;
+                }
+
+                .product-form textarea,
+                .product-form .form-actions,
+                .error {
+                    grid-column: span 1;
+                }
+
+                .product-form button,
+                .edit-btn,
+                .delete-btn,
+                .preview-btn,
+                .cancel-btn {
+                    padding: 0.5rem 1rem;
+                }
             }
         </style>
     </head>
     <body>
-        <header class="rd-navbar">
-            <button class="rd-sidebar-toggler" data-target=".rd-page-wrapper" title="Toggle side bar menu"><i class="fa-solid fa-bars fa-fw"></i><span class="screen-reader-only" aria-hidden="true">Toggle side bar menu</span></button>
-            <div class="rd-site-brand"><a href="./admin.html">Admin Dashboard</a></div>
-            <nav class="nav-right">
-                <ul class="sm sm-rdta navbar">
-                    <li class="user"><a href="#"><i class="fa-regular fa-circle-user"></i></a>
-                        <ul>
-                            <li><a>Hello, Lutfino</a></li>
-                            <li><a href="#">Edit your account</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+
         <div class="rd-page-wrapper">
             <div class="rd-sidebar-back"></div>
             <section class="rd-sidebar">
@@ -129,6 +317,7 @@
                                     <input type="number" id="productStock" placeholder="Stok" required min="0">
                                     <input type="text" id="productBrand" placeholder="Merek" required>
                                     <select id="productCondition" required>
+                                        <option value="" disabled selected>Pilih Kondisi</option>
                                         <option value="Baru">Baru</option>
                                         <option value="Bekas">Bekas</option>
                                     </select>
@@ -136,8 +325,10 @@
                                     <input type="text" id="productCategory" placeholder="Kategori" required>
                                     <input type="text" id="productMaterial" placeholder="Bahan" required>
                                     <textarea id="productSpecifications" placeholder="Spesifikasi" required></textarea>
-                                    <button type="submit">Simpan Produk</button>
-                                    <button type="button" id="cancelProduct" class="cancel-btn" style="display: none;">Batal</button>
+                                    <div class="form-actions">
+                                        <button type="submit">Simpan Produk</button>
+                                        <button type="button" id="cancelProduct" class="cancel-btn" style="display: none;">Batal</button>
+                                    </div>
                                 </form>
                                 <table class="rd-datatable responsive">
                                     <thead>
@@ -304,6 +495,7 @@
                 document.getElementById('productCode').value = generateProductCode(products);
                 document.getElementById('cancelProduct').style.display = 'none';
                 document.getElementById('formError').style.display = 'none';
+                document.getElementById('productCondition').value = '';
             }
 
             document.getElementById('cancelProduct').addEventListener('click', resetProductForm);

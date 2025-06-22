@@ -17,66 +17,219 @@
         <link class="exclude-preview" rel="stylesheet" href="assets/css-preview/view-source.css?v=882e2b16871a0ba615594d2595727886">
         <link rel="stylesheet" href="assets/css/rdta/columns/columns-flex.css?v=5a1243343c98bcb2a0956d100c7e15d7">
         <style>
-            .example-card {
-                border: 1px solid #ddd;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                margin-bottom: 1.250rem;
-                padding: 0.625em;
+            body {
+                background-color: #ffffff;
+                color: #1a1a1a;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+                line-height: 1.6;
             }
-            .user-form input, .user-form select {
-                padding: 5px;
-                border-radius: 4px;
-                border: 1px solid #ddd;
-                width: 100%;
-                margin-bottom: 10px;
+
+            .rd-navbar {
+                background-color: #ffffff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                padding: 1rem;
             }
-            .user-form button, .delete-btn, .edit-btn, .cancel-btn {
-                background: #e91e63;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background 0.3s ease;
-                margin-right: 5px;
+
+            .rd-site-brand a {
+                color: #1a1a1a;
+                font-size: 1.5rem;
+                font-weight: 600;
+                text-decoration: none;
             }
-            .user-form button:hover, .delete-btn:hover, .edit-btn:hover, .cancel-btn:hover {
-                background: #c2185b;
+
+            .rd-sidebar {
+                background-color: #f8fafc;
+                border-right: 1px solid #e5e7eb;
             }
-            .cancel-btn {
-                background: #666;
+
+            .rd-sidebar-item-list a {
+                color: #374151;
+                transition: all 0.2s ease;
+                border-radius: 6px;
+                padding: 0.75rem 1rem;
+                margin: 0.25rem 0.5rem;
             }
-            .cancel-btn:hover {
-                background: #555;
+
+            .rd-sidebar-item-list a:hover {
+                background-color: #e5e7eb;
+                color: #1a1a1a;
             }
-            .rd-datatable th, .rd-datatable td {
-                padding: 8px;
-                text-align: left;
-            }
+
             .rd-sidebar-item-list a.active {
-                background: #e91e63;
-                color: white;
-                border-radius: 4px;
+                background-color: #3b82f6;
+                color: #ffffff;
+                font-weight: 500;
+            }
+
+            .example-card {
+                background-color: #ffffff;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                transition: transform 0.2s ease;
+            }
+
+            .example-card:hover {
+                transform: translateY(-2px);
+            }
+
+            .example-card h3 {
+                color: #1a1a1a;
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            .user-form {
+                display: grid;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .user-form input,
+            .user-form select {
+                padding: 0.75rem;
+                border-radius: 6px;
+                border: 1px solid #d1d5db;
+                background-color: #ffffff;
+                font-size: 0.875rem;
+                color: #1a1a1a;
+                transition: border-color 0.2s ease;
+            }
+
+            .user-form input:focus,
+            .user-form select:focus {
+                outline: none;
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            .user-form input[readonly] {
+                background-color: #f3f4f6;
+                cursor: not-allowed;
+            }
+
+            .user-form button,
+            .edit-btn,
+            .delete-btn,
+            .cancel-btn {
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+                font-size: 0.875rem;
+                font-weight: 500;
+                transition: background-color 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .user-form button {
+                background-color: #3b82f6;
+                color: #ffffff;
+            }
+
+            .user-form button:hover {
+                background-color: #2563eb;
+            }
+
+            .edit-btn {
+                background-color: #10b981;
+                color: #ffffff;
+            }
+
+            .edit-btn:hover {
+                background-color: #059669;
+            }
+
+            .delete-btn {
+                background-color: #ef4444;
+                color: #ffffff;
+            }
+
+            .delete-btn:hover {
+                background-color: #dc2626;
+            }
+
+            .cancel-btn {
+                background-color: #6b7280;
+                color: #ffffff;
+            }
+
+            .cancel-btn:hover {
+                background-color: #4b5563;
+            }
+
+            .rd-datatable {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #ffffff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+
+            .rd-datatable th,
+            .rd-datatable td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 0.875rem;
+            }
+
+            .rd-datatable th {
+                background-color: #f8fafc;
+                color: #1a1a1a;
+                font-weight: 600;
+            }
+
+            .rd-datatable td {
+                color: #4b5563;
+            }
+
+            .rd-breadcrumb {
+                margin-bottom: 1.5rem;
+            }
+
+            .rd-breadcrumb li a {
+                color: #3b82f6;
+                text-decoration: none;
+                font-size: 0.875rem;
+            }
+
+            .rd-breadcrumb li a:hover {
+                text-decoration: underline;
+            }
+
+            hr {
+                border-color: #e5e7eb;
+                margin: 1rem 0;
+            }
+
+            @media (max-width: 768px) {
+                .example-card {
+                    padding: 1rem;
+                }
+
+                .rd-datatable th,
+                .rd-datatable td {
+                    padding: 0.75rem;
+                }
+
+                .user-form button,
+                .edit-btn,
+                .delete-btn,
+                .cancel-btn {
+                    padding: 0.5rem 1rem;
+                }
             }
         </style>
     </head>
     <body>
-        <header class="rd-navbar">
-            <button class="rd-sidebar-toggler" data-target=".rd-page-wrapper" title="Toggle side bar menu"><i class="fa-solid fa-bars fa-fw"></i><span class="screen-reader-only" aria-hidden="true">Toggle side bar menu</span></button>
-            <div class="rd-site-brand"><a href="./admin.html">Admin Dashboard</a></div>
-            <nav class="nav-right">
-                <ul class="sm sm-rdta navbar">
-
-                    <li class="user"><a href="#"><i class="fa-regular fa-circle-user"></i></a>
-                        <ul>
-                            <li><a>Hello, Lutfino</a></li>
-                            <li><a href="#">Edit your account</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+      
         <div class="rd-page-wrapper">
             <div class="rd-sidebar-back"></div>
             <section class="rd-sidebar">
@@ -116,12 +269,15 @@
                                     <input type="email" id="userEmail" placeholder="Email" required>
                                     <input type="password" id="userPassword" placeholder="Password" required>
                                     <select id="userRole" required>
+                                        <option value="" disabled selected>Pilih Role</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Customer">Customer</option>
                                     </select>
                                     <input type="text" id="registrationDate" placeholder="Tanggal Registrasi (otomatis)" readonly>
-                                    <button type="submit">Simpan Pengguna</button>
-                                    <button type="button" id="cancelUser" class="cancel-btn" style="display: none;">Batal</button>
+                                    <div>
+                                        <button type="submit">Simpan Pengguna</button>
+                                        <button type="button" id="cancelUser" class="cancel-btn" style="display: none;">Batal</button>
+                                    </div>
                                 </form>
                                 <table class="rd-datatable responsive">
                                     <thead>
@@ -134,7 +290,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="userTableBody"></tbody>
-
                                 </table>
                             </div>
                         </div>
@@ -240,6 +395,7 @@
                 document.getElementById('userId').value = '';
                 document.getElementById('registrationDate').value = new Date().toLocaleString('id-ID');
                 document.getElementById('cancelUser').style.display = 'none';
+                document.getElementById('userRole').value = '';
             }
 
             document.getElementById('cancelUser').addEventListener('click', resetUserForm);

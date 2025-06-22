@@ -220,10 +220,55 @@
     <div class="container">
         <div class="collections">
             <h2>Koleksi Produk</h2>
+            <div style="margin-bottom: 20px;">
+    <input type="text" id="searchInput" placeholder="Cari produk..." oninput="filterProducts()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+</div>
+
             <div class="collection-items" id="collectionItems"></div>
         </div>
     </div>
-
+<footer class="main-footer" id="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <img src="images/miniso.png" alt="MINISO Logo" class="footer-logo">
+                <p><strong>Franchise Inquiries</strong><br>Franchise@miniso.com</p>
+            </div>
+            <div class="footer-column">
+                <h4>Brand</h4>
+                <ul>
+                    <li><a href="#">Brand Profile</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">IP Collaboration</a></li>
+                    <li><a href="#">E-Shop</a></li>
+                    <li><a href="#">Global Market</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Stores</h4>
+                <ul>
+                    <li><a href="#">Store Image</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Investors</h4>
+                <ul>
+                    <li><a href="#">Social Responsibility</a></li>
+                    <li><a href="login.html">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Privacy Policy | Copyright © 2024 MINISO CO.,LTD | ICP备2021040074号 Powered by vancheer</p>
+        </div>
+    </div>
+</footer>
     <script>
         // Toggle mobile menu
         document.querySelector('.menu-toggle').addEventListener('click', () => {
@@ -265,6 +310,38 @@
                 collectionItems.appendChild(item);
             });
         }
+        let allProducts = [];
+
+function filterProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = allProducts.filter(product =>
+        product.name.toLowerCase().includes(query)
+    );
+
+    const collectionItems = document.getElementById('collectionItems');
+    collectionItems.innerHTML = '';
+
+    filtered.forEach(product => {
+        const item = document.createElement('a');
+        item.href = `product-detail.html?id=${product.id}`;
+        item.target = '_blank';
+        item.className = 'collection-item';
+        item.innerHTML = `
+            <img src="${product.images[0] || 'https://via.placeholder.com/200'}" alt="${product.name}">
+            <p>${product.name}</p>
+            <p>Rp${product.price.toLocaleString()}</p>
+        `;
+        collectionItems.appendChild(item);
+    });
+}
+
+// Update loadProducts function
+function loadProducts() {
+    const products = JSON.parse(localStorage.getItem('products') || '[]');
+    allProducts = products;
+    filterProducts(); // tampilkan semua saat awal
+}
+
 
         // Update cart count and load products on page load
         window.onload = () => {
